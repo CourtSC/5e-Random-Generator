@@ -19,3 +19,4 @@ def insultGen():
 
 # Print each word out in order as the insult.
 print(insultGen())
+input("Press Enter to close.")
