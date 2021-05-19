@@ -1,0 +1,7 @@
+Biome description generator.
+A random generator consisting of descriptive text for predetermined biomes. Combination of 5 senses.
+Biomes:
+  Forest
+  Cave
+  Grasslands/Plains
+  Mountainous
