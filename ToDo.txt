@@ -1,5 +1,0 @@
-Random Dungeon Generator
-Randomly generate a dungeon, populate the rooms, and apply descriptive text to it.
-
-Random NPC Generator
-Randomly generate an NPC, including name, distinct appearance, and personality archtype.
