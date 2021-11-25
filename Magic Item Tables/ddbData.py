@@ -25,6 +25,7 @@ try:
 except:
     pass
 
+data = []
 page = 1
 nextPage = True
 while nextPage:
@@ -33,7 +34,6 @@ while nextPage:
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     nextPage = soup.select('.b-pagination-item.b-pagination-item-next')
     page += 1
-
     # collect information from each magic item on the page.
     itemName = soup.select('.link span')
     itemRarity = soup.select('.rarity') # Need to strip whitespace.
@@ -41,13 +41,20 @@ while nextPage:
     itemSubType = soup.select('.row.item-type .subtype') # Need to strip whitespace.
     itemAttunement = soup.select('.row.requires-attunement') # Need to strip whitespace.
     itemNotes = soup.select('.row.notes') # Need to strip whitespace.
-
     # Create the data list of tuples.
-    data = []
     for i in range(len(itemName)):
         data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), itemNotes[i].getText().strip()))
-        print(f'Added item {itemName[i].getText().strip()} to database.')
+        # print(f'Added item {itemName[i].getText().strip()} to database.')
 
-    # Add data to the MAGICITEMS table in the database.
+# Add new data to the MAGICITEMS table in the database.
+def itemCheck(item):
     with con:
-        con.executemany(sql, data)
+        dbItem = con.execute("SELECT * FROM MAGICITEMS WHERE name == " + item)
+        if dbItem:
+            return True
+        else:
+            return False
+with con:
+    for i in range(len(itemName)):
+        if not itemCheck(itemName[i].getText().strip()):
+            con.execute(sql, data[i])
