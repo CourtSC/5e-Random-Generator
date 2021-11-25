@@ -48,12 +48,14 @@ while nextPage:
 
 # Add new data to the MAGICITEMS table in the database.
 def itemCheck(item):
+    search = f'SELECT * FROM MAGICITEMS WHERE name == {item}'
     with con:
-        dbItem = con.execute("SELECT * FROM MAGICITEMS WHERE name == " + item)
+        dbItem = con.execute(search)
         if dbItem:
             return True
         else:
             return False
+
 with con:
     for i in range(len(itemName)):
         if not itemCheck(itemName[i].getText().strip()):
