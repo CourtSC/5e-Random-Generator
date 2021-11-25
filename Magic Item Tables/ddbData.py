@@ -23,7 +23,7 @@ try:
             );
         """)
 except:
-    print('table MAGICITEMS already exists')
+    pass
 
 page = 1
 nextPage = True
