@@ -46,6 +46,7 @@ while nextPage:
     data = []
     for i in range(len(itemName)):
         data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), itemNotes[i].getText().strip()))
+        print(f'Added item {itemName[i].getText().strip()} to database.')
 
     # Add data to the MAGICITEMS table in the database.
     with con:
