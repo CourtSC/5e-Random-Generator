@@ -2,28 +2,10 @@
 #! dataPull.py - A program to scrape D&D 5e magic item info from various sources and save them to a database
 #! Edge User-Agent - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29
 
-import bs4, requests_html, sqlite3
+import bs4, requests_html, csv
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'}
 session = requests_html.HTMLSession()
-
-# Create database.
-con = sqlite3.connect('Magic Item Tables/magicItem.db')
-sql = 'INSERT INTO MAGICITEMS (name, rarity, type, subtype, attune, notes) values(?, ?, ?, ?, ?, ?)'
-try:
-    with con:
-        con.execute("""
-            CREATE TABLE MAGICITEMS (
-                name TEXT,
-                rarity TEXT,
-                type TEXT,
-                subtype TEXT,
-                attune TEXT,
-                notes TEXT
-            );
-        """)
-except:
-    pass
 
 data = []
 page = 1
@@ -41,22 +23,15 @@ while nextPage:
     itemSubType = soup.select('.row.item-type .subtype') # Need to strip whitespace.
     itemAttunement = soup.select('.row.requires-attunement') # Need to strip whitespace.
     itemNotes = soup.select('.row.notes') # Need to strip whitespace.
-    # Create the data list of tuples.
+    # Create the data list.
     for i in range(len(itemName)):
-        data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), itemNotes[i].getText().strip()))
-        # print(f'Added item {itemName[i].getText().strip()} to database.')
-
-# Add new data to the MAGICITEMS table in the database.
-def itemCheck(item):
-    search = f'SELECT * FROM MAGICITEMS WHERE name == {item}'
-    with con:
-        dbItem = con.execute(search)
-        if dbItem:
-            return True
+        if itemAttunement[i].getText().strip() == 'Required':
+            data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), itemNotes[i].getText().strip()))
         else:
-            return False
+            data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), 'Not Required', itemNotes[i].getText().strip()))
 
-with con:
-    for i in range(len(itemName)):
-        if not itemCheck(itemName[i].getText().strip()):
-            con.execute(sql, data[i])
+with open('Magic Item Tables/MagicItems.csv', 'w') as dBase:
+    writer = csv.writer(dBase)
+    for i in data:
+        writer.writerow(i)
+        print(f'Added item {i[0]} to database.')
