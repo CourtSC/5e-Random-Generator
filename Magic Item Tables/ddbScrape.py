@@ -32,6 +32,7 @@ while nextPage:
 
 with open('Magic Item Tables/MagicItems.csv', 'w') as dBase:
     writer = csv.writer(dBase)
+    writer.writerow(('Name', 'Rarity', 'Type', 'SubType', 'Attunement', 'Notes'))
     for i in data:
         writer.writerow(i)
         print(f'Added item {i[0]} to database.')
