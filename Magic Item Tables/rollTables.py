@@ -39,9 +39,7 @@ def magicTableCR4(d100):
                 if ('common' or 'uncommon' or 'varies') in i.lower():
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
-    if d100 in range(1,37):
-        return print('No magic items.')
-    elif d100 in range(37, 61):
+    if d100 in range(1, 61):
         # Roll 1d6 Consumables.
         d6 = randint(1,6)
         for r in range(d6):
