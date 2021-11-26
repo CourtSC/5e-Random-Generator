@@ -22,7 +22,7 @@ def artOrGems(d100):
 def magicTableCR4(d100):
     reward = []
     # Generate list of Consumables.
-    with open('Magic Item Tables/MagicItems.csv', 'r') as dBase:
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         conTable = []
         for row in reader:
@@ -31,7 +31,7 @@ def magicTableCR4(d100):
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
-    with open('Magic Item Tables/MagicItems.csv', 'r') as dBase:
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         itemTable = []
         for row in reader:
