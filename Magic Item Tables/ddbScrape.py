@@ -30,7 +30,7 @@ while nextPage:
         else:
             data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), 'Not Required', itemNotes[i].getText().strip()))
 
-with open('Magic Item Tables/MagicItems.csv', 'w') as dBase:
+with open('Magic Item Tables/MagicItems.csv', 'w', encoding='Windows-1252') as dBase:
     writer = csv.writer(dBase)
     writer.writerow(('Name', 'Rarity', 'Type', 'SubType', 'Attunement', 'Notes'))
     for i in data:
