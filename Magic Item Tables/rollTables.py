@@ -104,7 +104,7 @@ def magicTableCR10(d100):
         conTable = []
         for row in reader:
             for i in row:
-                if 'consumable' in i.lower() and ('uncommon' or 'rare' or 'varies') in i.lower():
+                if 'consumable' in i.lower() and ('uncommon' or 'rare' or 'varies') in i.lower() and 'very rare' not in i.lower():
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
@@ -113,7 +113,7 @@ def magicTableCR10(d100):
         itemTable = []
         for row in reader:
             for i in row:
-                if ('uncommon' or 'rare' or 'varies') in i.lower():
+                if ('uncommon' or 'rare' or 'varies') in i.lower() and 'very rare' not in i.lower():
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
     # Generate list of Common Magic Items.
@@ -130,9 +130,17 @@ def magicTableCR10(d100):
         d6 = randint(1,6)
         for r in range(d6):
             reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll 1d4 Common items.
+        d4 = randint(1,4)
+        for r in range(d4):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
         return reward
     elif d100 in range(61, 76):
         # Roll 1d4 times on table.
+        d4 = randint(1,4)
+        for r in range(d4):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 Common items.
         d4 = randint(1,4)
         for r in range(d4):
             reward.append(itemTable[randint(0, len(itemTable) - 1)])
@@ -141,6 +149,10 @@ def magicTableCR10(d100):
         # Roll 1d6 times on table.
         d6 = randint(1,6)
         for r in range(d6):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d6 Common items.
+        d4 = randint(1,6)
+        for r in range(d4):
             reward.append(itemTable[randint(0, len(itemTable) - 1)])
         return reward
     elif d100 in range(86, 98):
@@ -151,6 +163,10 @@ def magicTableCR10(d100):
         # Roll 1d6 times on table.
         d6 = randint(1,6)
         for r in range(d6):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d6 Common items.
+        d4 = randint(1,6)
+        for r in range(d4):
             reward.append(itemTable[randint(0, len(itemTable) - 1)])
         return reward
     elif d100 >= 98:
