@@ -2,10 +2,11 @@
 #! rollTables.py - a program to randomly roll on all of the items in MagicItems.csv.
 
 from random import randint
-import csv
+import csv, sys
 
 treasureHoard = randint(1, 100)
-# TODO: Divide the total value of all gems or art objects rewarded and apply them to randomly rolled tables of items.
+# TODO: Add Gold rewards to each table.
+# TODO: Use roll tables to determine the size, value and type of gems and art objects rewarded.
 
 # Roll table for Treasure Hoard CR 0-4.
 def magicTableCR4(d100):
@@ -16,7 +17,7 @@ def magicTableCR4(d100):
     gems = randint(1,6) + randint(1,6)
     art = randint(1,4) + randint(1,4)
     # Generate art or gem rewards 
-    if d100 in [i for i in range(1, 17)] + [i for i in range(37, 45)] + [i for i in range(61, 66)] + [i for i in range(76, 79)]:
+    if d100 in [i for i in range(7, 17)] + [i for i in range(37, 45)] + [i for i in range(61, 66)] + [i for i in range(76, 79)]:
         reward.append(f'{gems * 10} gp worth of gems.')
     elif d100 in [i for i in range(17, 27)] + [i for i in range(45, 53)] + [i for i in range(66, 71)] + [i for i in range(79, 81)] + [i for i in range(86, 93)] + [i for i in range(98, 100)]:
         reward.append(f'{art * 25} gp worth of art objects.')
@@ -303,6 +304,157 @@ def magicTableCR16(d100):
         reward.append(legTable[randint(0, len(legTable) - 1)])
     return reward
 
+# Roll Table for Treasure Hoard CR 17+.
+def magicTableCR17(d100):
+    reward = []
+    conTable = []
+    itemTable = []
+    itemTableLow = []
+    gems = randint(1,6) + randint(1,6) + randint(1,6)
+    art = randint(1,4) + randint(1,4)
+    if d100 in [i for i in range(3,6)] + [i for i in range(15,23)] + [i for i in range(47,53)] + [69] + [i for i in range(73,75)] + [i for i in range(81,86)]:
+        reward.append(f'{gems * 1000} gp worth of gems.')
+    elif d100 in [i for i in range(6,9)] + [i for i in range(23,31)] + [i for i in range(53,59)] + [70] + [i for i in range(75,77)] + [i for i in range(86,91)]:
+        reward.append(f'{art * 2500} gp worth of art.')
+    elif d100 in [i for i in range(9,12)] + [i for i in range(31,39)] + [i for i in range(59,64)] + [71]  + [i for i in range(77,79)] + [i for i in range(91,96)]:
+        reward.append(f'{art * 7500} gp worth of art.')
+    elif d100 in [i for i in range(12,15)] + [i for i in range(39,47)] + [i for i in range(64,69)] + [72] + [i for i in range(79,81)] + [i for i in range(96,101)]:
+        reward.append(f'{gems * 5000} gp worth of gems.')
+    # Generate list of Consumables.
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+        reader = csv.reader(dBase, delimiter = '\n')
+        for row in reader:
+            for i in row:
+                if 'consumable' in i.lower() and ('rare' or 'very rare' or 'legendary' or 'varies') in i.lower():
+                    i = i.split(',')
+                    conTable.append([', '.join(i)])
+    # Generate list from 50 magic items.
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+        reader = csv.reader(dBase, delimiter = '\n')
+        for row in reader:
+            for i in row:
+                if ('rare' or 'very rare' or 'varies') in i.lower():
+                    i = i.split(',')
+                    itemTable.append([', '.join(i)])
+    # Generate list of Common & Uncommon Magic Items.
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+        reader = csv.reader(dBase, delimiter = '\n')
+        for row in reader:
+            for i in row:
+                if ('common' or 'uncommon' or 'varies') in i.lower():
+                    i = i.split(',')
+                    itemTableLow.append([', '.join(i)])
+    # Generate list of Very Rare Magic Items
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+        reader = csv.reader(dBase, delimiter = '\n')
+        rareTable = []
+        for row in reader:
+            for i in row:
+                if 'very rare' in i.lower():
+                    i = i.split(',')
+                    rareTable.append([', '.join(i)])
+    # Generate list of Legendary Magic Items
+    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+        reader = csv.reader(dBase, delimiter = '\n')
+        legTable = []
+        for row in reader:
+            for i in row:
+                if 'legendary' in i.lower():
+                    i = i.split(',')
+                    legTable.append([', '.join(i)])
+    if d100 in range(1,30):
+        # Roll 1d4 + 1d6 times on the Low Magic Table.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Choose 1d4 Magic item
+        for r in range(randint(1,4)):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1 Very Rare item.
+        reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 in range(30,51):
+        # Roll 1d6 Magic Items.
+        for r in range(randint(1,6)):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1 Very Rare item.
+        reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 in range(51,67):
+        # Roll 1d4 + 1d6 Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1d4 Very Rare item.
+        for r in range (randint(1,4)):
+            reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 in range(67,75):
+        # Roll 1d4 + 1d6 Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d6 + 1d4 + 3 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4) + 3):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1d4 Very Rare item.
+        for r in range (randint(1,4)):
+            reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 in range(75,83):
+        # Roll 1d6 + 1d4 + 3 Magic Items.
+        for r in range(randint(1,6) + randint(1,4) + 3):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1d4 Very Rare item.
+        for r in range (randint(1,4)):
+            reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 in range(83,93):
+        # Roll 1d6 + 1d4 + 3 Magic Items.
+        for r in range(randint(1,6) + randint(1,4) + 3):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll for 1d6 Very Rare item.
+        for r in range (randint(1,6)):
+            reward.append(rareTable[randint(0, len(rareTable) - 1)])
+    elif d100 >= 93:
+        # Roll 1d4 + 1d6 Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTable[randint(0, len(itemTable) - 1)])
+        # Roll 1d4 + 1d6 Low Magic Items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(itemTableLow[randint(0, len(itemTableLow) - 1)])
+        # Roll 1d4 + 1d6 Consumables.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(conTable[randint(0, len(conTable) - 1)])
+        # Roll 1d4 + 1d6 Very Rare items.
+        for r in range(randint(1,6) + randint(1,4)):
+            reward.append(rareTable[randint(0, len(rareTable) - 1)])
+        # Roll 1d4 Legendary Item
+        for r in range(randint(1,4)):
+            reward.append(legTable[randint(0, len(legTable) - 1)])
+    return reward
 
-for i in magicTableCR16(treasureHoard):
+for i in magicTableCR17(treasureHoard):
     print(i)
