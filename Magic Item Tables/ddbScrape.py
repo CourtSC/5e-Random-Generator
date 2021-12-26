@@ -26,10 +26,16 @@ while nextPage:
     # Create the data list.
     for i in range(len(itemName)):
         if itemAttunement[i].getText().strip() == 'Required':
-            data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), itemNotes[i].getText().strip()))
+            if itemSubType[i].getText().strip():
+                data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), itemAttunement[i].getText().strip(), [x.strip() for x in itemNotes[i].getText().split(',')]))
+            else:
+                data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), 'No SubType', itemAttunement[i].getText().strip(), [x.strip() for x in itemNotes[i].getText().split(',')]))
         else:
-            data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), 'Not Required', itemNotes[i].getText().strip()))
-
+            if itemSubType[i].getText().strip():
+                data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), itemSubType[i].getText().strip(), 'Not Required', [x.strip() for x in itemNotes[i].getText().split(',')]))
+            else:
+                data.append((itemName[i].getText().strip(), itemRarity[i].getText().strip(), itemType[i].getText().strip(), 'No SubType', 'Not Required', [x.strip() for x in itemNotes[i].getText().split(',')]))
+           
 with open('Magic Item Tables/MagicItems.csv', 'w', encoding='Windows-1252') as dBase:
     writer = csv.writer(dBase)
     writer.writerow(('Name', 'Rarity', 'Type', 'SubType', 'Attunement', 'Notes'))
