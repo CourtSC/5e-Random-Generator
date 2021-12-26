@@ -3,10 +3,8 @@
 
 from random import randint
 from pathlib import Path
-import csv, sys
+import csv
 
-treasureHoard = randint(1, 100)
-# TODO: Add Gold rewards to each table.
 # TODO: Use roll tables to determine the size, value and type of gems and art objects rewarded.
 
 # Roll table for Treasure Hoard CR 0-4.
@@ -15,8 +13,12 @@ def magicTableCR4(d100):
     conTable = []
     itemTable = []
     rareTable = []
-    gems = randint(1,6) + randint(1,6)
-    art = randint(1,4) + randint(1,4)
+    gems = sum([randint(1,6) for i in range(2)])
+    art = sum([randint(1,4) for i in range(2)])
+    cp = sum([randint(1,6) for i in range(6)])
+    sp = sum([randint(1,6) for i in range(3)])
+    gp = sum([randint(1,6) for i in range(2)])
+    reward.append((f'{cp * 100} CP', f'{sp * 100} SP', f'{gp * 10} GP'))
     # Generate art or gem rewards 
     if d100 in [i for i in range(7, 17)] + [i for i in range(37, 45)] + [i for i in range(61, 66)] + [i for i in range(76, 79)]:
         reward.append(f'{gems * 10} gp worth of gems.')
@@ -84,8 +86,13 @@ def magicTableCR10(d100):
     conTable = []
     itemTable = []
     itemTableLow = []
-    gems = randint(1,6) + randint(1,6) + randint(1,6)
-    art = randint(1,4) + randint(1,4)
+    gems = sum([randint(1,6) for i in range(3)])
+    art = sum([randint(1,4) for i in range(2)])
+    cp = sum([randint(1,6) for i in range(2)])
+    sp = sum([randint(1,6) for i in range(2)])
+    gp = sum([randint(1,6) for i in range(6)])
+    pp = sum([randint(1,6) for i in range(3)])
+    reward.append((f'{cp * 100} CP', f'{sp * 1000} SP', f'{gp * 10} GP', f'{pp * 10} PP'))
     if d100 in [i for i in range(5,11)] + [i for i in range(29,33)] + [i for i in range(45,50)] + [i for i in range(64,66)] + [i for i in range(75,77)] + [i for i in range(81,85)]:
         reward.append(f'{art * 25} gp worth of art objects.')
     elif d100 in [i for i in range(11,17)] + [i for i in range(33,37)] + [i for i in range(50,55)] + [i for i in range(67,70)] + [i for i in range(77,79)] + [i for i in range(85,89)]:
@@ -175,8 +182,11 @@ def magicTableCR16(d100):
     conTable = []
     itemTable = []
     itemTableLow = []
-    gems = randint(1,6) + randint(1,6) + randint(1,6)
-    art = randint(1,4) + randint(1,4)
+    gems = sum([randint(1,6) for i in range(3)])
+    art = sum([randint(1,4) for i in range(2)])
+    gp = sum([randint(1,6) for i in range(4)])
+    pp =  sum([randint(1,6) for i in range(5)])
+    reward.append((f'{gp * 10} GP', f'{pp * 10} PP'))
     if d100 in [i for i in range(4,7)] + [i for i in range(16,20)] + [i for i in range(30,36)] + [i for i in range(51,55)] + [i for i in range(67,69)] + [i for i in range(75,77)] + [i for i in range(83,85)] + [i for i in range(93,95)]:
         reward.append(f'{art * 250} gp worth of art objects.')
     elif d100 in [i for i in range(7,10)] + [i for i in range(20,24)] + [i for i in range(36,41)] + [i for i in range(55,59)] + [i for i in range(69,71)] + [i for i in range(77,79)] + [i for i in range(86,89)] + [i for i in range(95,97)]:
@@ -311,8 +321,11 @@ def magicTableCR17(d100):
     conTable = []
     itemTable = []
     itemTableLow = []
-    gems = randint(1,6) + randint(1,6) + randint(1,6)
-    art = randint(1,4) + randint(1,4)
+    gems = sum([randint(1,6) for i in range(3)])
+    art = sum([randint(1,4) for i in range(2)])
+    gp = sum([randint(1,6) for i in range(12)])
+    pp =  + sum([randint(1,6) for i in range(8)])
+    reward.append((f'{gp * 10} GP', f'{pp * 10} PP'))
     if d100 in [i for i in range(3,6)] + [i for i in range(15,23)] + [i for i in range(47,53)] + [69] + [i for i in range(73,75)] + [i for i in range(81,86)]:
         reward.append(f'{gems * 1000} gp worth of gems.')
     elif d100 in [i for i in range(6,9)] + [i for i in range(23,31)] + [i for i in range(53,59)] + [70] + [i for i in range(75,77)] + [i for i in range(86,91)]:
@@ -457,5 +470,14 @@ def magicTableCR17(d100):
             reward.append(legTable[randint(0, len(legTable) - 1)])
     return reward
 
-for i in magicTableCR17(treasureHoard):
-    print(i)
+# Accept CR as argument and choose correct table for hoard.
+def treasureHoard(CR):
+    d100 = randint(1,100)
+    if CR <= 4:
+        return magicTableCR4(d100)
+    elif CR in range(5,11):
+        return magicTableCR10(d100)
+    elif CR in range(11,17):
+        return magicTableCR16(d100)
+    elif CR >= 17:
+        return magicTableCR17(d100)
