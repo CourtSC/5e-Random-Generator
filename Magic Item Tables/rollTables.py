@@ -5,8 +5,6 @@ from random import randint
 from pathlib import Path
 import csv
 
-# TODO: Use roll tables to determine the size, value and type of gems and art objects rewarded.
-
 # Roll table for Treasure Hoard CR 0-4.
 def magicTableCR4(d100):
     reward = []
@@ -473,11 +471,40 @@ def magicTableCR17(d100):
 # Accept CR as argument and choose correct table for hoard.
 def treasureHoard(CR):
     d100 = randint(1,100)
-    if CR <= 4:
-        return magicTableCR4(d100)
-    elif CR in range(5,11):
-        return magicTableCR10(d100)
-    elif CR in range(11,17):
-        return magicTableCR16(d100)
-    elif CR >= 17:
-        return magicTableCR17(d100)
+    with open('Magic Item Tables/magicRewards.csv', 'w', encoding='Windows-1252') as rew:
+        writer = csv.writer(rew)
+        writer.writerow(('Name', 'Rarity', 'Type', 'SubType', 'Attunement', 'Notes'))
+        if CR <= 4:
+            for i in magicTableCR4(d100):
+                line = ''.join(i).split(', ')
+                magicItem = line[:5]
+                notes = ','.join(line[5:]).strip('\"')
+                magicItem.append(notes)
+                writer.writerow(magicItem)
+                print(f'Added item {magicItem[0]} to reward list.')
+        elif CR in range(5,11):
+            for i in magicTableCR10(d100):
+                line = ''.join(i).split(', ')
+                magicItem = line[:5]
+                notes = ','.join(line[5:]).strip('\"')
+                magicItem.append(notes)
+                writer.writerow(magicItem)
+                print(f'Added item {magicItem[0]} to reward list.')
+        elif CR in range(11,17):
+            for i in magicTableCR16(d100):
+                line = ''.join(i).split(', ')
+                magicItem = line[:5]
+                notes = ','.join(line[5:]).strip('\"')
+                magicItem.append(notes)
+                writer.writerow(magicItem)
+                print(f'Added item {magicItem[0]} to reward list.')
+        elif CR >= 17:
+            for i in magicTableCR17(d100):
+                line = ''.join(i).split(', ')
+                magicItem = line[:5]
+                notes = ','.join(line[5:]).strip('\"')
+                magicItem.append(notes)
+                writer.writerow(magicItem)
+                print(f'Added item {magicItem[0]} to reward list.')
+
+treasureHoard(randint(1,100))
