@@ -2,6 +2,7 @@
 #! rollTables.py - a program to randomly roll on all of the items in MagicItems.csv.
 
 from random import randint
+from pathlib import Path
 import csv, sys
 
 treasureHoard = randint(1, 100)
@@ -24,7 +25,7 @@ def magicTableCR4(d100):
     elif d100 in [i for i in range(27,37)] + [i for i in range(53,61)] + [i for i in range(71,76)] + [i for i in range(81,86)] + [i for i in range(93,98)] + [i for i in range(100, 101)]:
         reward.append(f'{gems * 50} gp worth of gems.')
     # Generate list of Consumables.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -32,7 +33,7 @@ def magicTableCR4(d100):
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -40,7 +41,7 @@ def magicTableCR4(d100):
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
     # Generate list of Rare Magic Items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -94,7 +95,7 @@ def magicTableCR10(d100):
     elif d100 in [i for i in range(23,29)] + [i for i in range(41,45)] + [i for i in range(60,64)] + [i for i in range(73,75)] + [80] + [i for i in range(92,95)] + [i for i in range(97,99)] + [100]:
         reward.append(f'{art * 250} worth of art objects.')
     # Generate list of Consumables.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -102,7 +103,7 @@ def magicTableCR10(d100):
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -110,7 +111,7 @@ def magicTableCR10(d100):
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
     # Generate list of Common Magic Items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -118,7 +119,7 @@ def magicTableCR10(d100):
                     i = i.split(',')
                     itemTableLow.append([', '.join(i)])
     # Generate list of Very Rare Magic Items
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         rareTable = []
         for row in reader:
@@ -185,7 +186,7 @@ def magicTableCR16(d100):
     elif d100 in [i for i in range(13,16)] + [i for i in range(27,30)] + [i for i in range(46,51)] + [i for i in range(63,67)] + [i for i in range(73,75)] + [i for i in range(81,83)] + [i for i in range(91,93)] + [i for i in range(99,101)]:
         reward.append(f'{gems * 1000} gp worth of gems.')
     # Generate list of Consumables.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -193,7 +194,7 @@ def magicTableCR16(d100):
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -201,7 +202,7 @@ def magicTableCR16(d100):
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
     # Generate list of Common & Uncommon Magic Items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -209,7 +210,7 @@ def magicTableCR16(d100):
                     i = i.split(',')
                     itemTableLow.append([', '.join(i)])
     # Generate list of Very Rare Magic Items
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         rareTable = []
         for row in reader:
@@ -218,7 +219,7 @@ def magicTableCR16(d100):
                     i = i.split(',')
                     rareTable.append([', '.join(i)])
     # Generate list of Legendary Magic Items
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         legTable = []
         for row in reader:
@@ -321,7 +322,7 @@ def magicTableCR17(d100):
     elif d100 in [i for i in range(12,15)] + [i for i in range(39,47)] + [i for i in range(64,69)] + [72] + [i for i in range(79,81)] + [i for i in range(96,101)]:
         reward.append(f'{gems * 5000} gp worth of gems.')
     # Generate list of Consumables.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -329,7 +330,7 @@ def magicTableCR17(d100):
                     i = i.split(',')
                     conTable.append([', '.join(i)])
     # Generate list from 50 magic items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -337,7 +338,7 @@ def magicTableCR17(d100):
                     i = i.split(',')
                     itemTable.append([', '.join(i)])
     # Generate list of Common & Uncommon Magic Items.
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         for row in reader:
             for i in row:
@@ -345,7 +346,7 @@ def magicTableCR17(d100):
                     i = i.split(',')
                     itemTableLow.append([', '.join(i)])
     # Generate list of Very Rare Magic Items
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         rareTable = []
         for row in reader:
@@ -354,7 +355,7 @@ def magicTableCR17(d100):
                     i = i.split(',')
                     rareTable.append([', '.join(i)])
     # Generate list of Legendary Magic Items
-    with open('Magic Item Tables/MagicItems.csv', 'r', encoding='Windows-1252') as dBase:
+    with open(Path.home() / Path('5e-Random-Generator/Magic Item Tables/MagicItems.csv'), 'r', encoding='Windows-1252') as dBase:
         reader = csv.reader(dBase, delimiter = '\n')
         legTable = []
         for row in reader:
