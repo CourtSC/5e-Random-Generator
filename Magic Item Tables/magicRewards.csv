@@ -1,20 +1,8 @@
 Name,Rarity,Type,SubType,Attunement,Notes
-Scorpion Armor,Rare,Armor,Plate,Required,"Bonus: Initiative, Buff, Cursed, Str 15 Required, Stealth Disadvantage"
-Bonecounter,Rare,Weapon,Mace,Not Required,Bonus: Magic
-Professor Orb,Rare,Wondrous Item,No SubType,Not Required,"Utility, Sentient"
-Siren Song Lyre,Rare,Wondrous Item,No SubType,Required,
-Crystal Ball,Very Rare,Wondrous Item,No SubType,Required,"Scrying, Detection"
-Bracer of Flying Daggers,Rare,Wondrous Item,No SubType,Required,Wristwear
-Orb of Shielding,Common,Wondrous Item,No SubType,Required,"Warding, Focus"
-Quiver of Ehlonna,Uncommon,Wondrous Item,No SubType,Not Required,"Utility, Container"
-Boots of False Tracks,Common,Wondrous Item,No SubType,Not Required,Movement
-Staff of Birdcalls,Common,Staff,No SubType,Not Required,Utility
-Nature�s Mantle,Uncommon,Wondrous Item,No SubType,Required,druid or ranger
-Decanter of Endless Water,Uncommon,Wondrous Item,No SubType,Not Required,"Creation, Utility"
-Oil of Sharpness,Very Rare,Potion,No SubType,Not Required,"Bonus: Magic, Damage, Buff, Combat, Consumable"
-Marvelous Pigments,Very Rare,Wondrous Item,No SubType,Not Required,"Utility, Consumable"
-Oil of Etherealness,Rare,Potion,No SubType,Not Required,"Movement, Utility, Consumable"
-Weapon, +3,Very Rare,Weapon,No SubType,"Not Required,""Bonus: Magic, Damage, Combat"
-Wand of Polymorph,Very Rare,Wand,No SubType,Required,"Spellcaster, Control, Shapechanging"
-Timepiece of Travel,Very Rare,Wondrous Item,No SubType,Required,Bonus: Dexterity Saving Throws
-Shield, +3,Very Rare,Armor,Shield,"Not Required,""Bonus: Armor Class, Combat, Warding"
+Potion of Climbing,Common,Potion,No SubType,Not Required,"Set: Innate Speed (Climbing), Advantage: Athletics, Buff, Movement, Consumable"
+Blood of the Lycanthrope Antidote,Uncommon,Potion,No SubType,Not Required,Consumable
+Philter of Love,Uncommon,Potion,No SubType,Not Required,"Charmed, Control, Consumable"
+Oil of Slipperiness,Uncommon,Potion,No SubType,Not Required,"Control, Movement, Utility, Consumable"
+Helm of Telepathy,Uncommon,Wondrous Item,No SubType,Required,"Communication, Detection, Headwear"
+Dust of Deliciousness,Uncommon,Wondrous Item,No SubType,Not Required,
+Oathbow,Very Rare,Weapon,Longbow,Required,"Damage: Piercing, Damage, Combat, Bane, Ammunition, Heavy, Range, Two-Handed"

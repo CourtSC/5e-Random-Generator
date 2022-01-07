@@ -507,4 +507,4 @@ def treasureHoard(CR):
                 writer.writerow(magicItem)
                 print(f'Added item {magicItem[0]} to reward list.')
 
-treasureHoard(randint(1,100))
+treasureHoard(2)
